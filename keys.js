@@ -1,4 +1,6 @@
-console.log('this is loaded');
+console.log("");
+console.log("The require has successfully loaded the twitter keys.js!")
+console.log("");
 
 exports.twitterKeys = {
   consumer_key: 'BxVh3G6IHIuoFJjQcRmh6nAJr',
