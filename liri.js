@@ -35,7 +35,7 @@ var client = new Twitter({
 });
  
 var params = {screen_name: 'chrisallen777'};
-client.get('search/tweets', {q: 'node.js', limit: 1}, function(error, tweets, response) {
+client.get('search/tweets', {q: 'baylorbears', limit: 1}, function(error, tweets, response) {
 	console.log("-------------------------------------");
     console.log("-------------------------------------");
     console.log("Twitter API Tweet Search Results Below");
@@ -43,7 +43,7 @@ client.get('search/tweets', {q: 'node.js', limit: 1}, function(error, tweets, re
     console.log("-------------------------------------");
     console.log("");
    	// console.log(tweets);
-    console.log(tweets.statuses.);
+    console.log(tweets);
    	// tweets.map(function(tweet){
    	// 	console.log(tweet.text);
    	// });
@@ -61,12 +61,6 @@ var spotify = new Spotify({
   id: '54d72841e6a940adb2b5bf919507c6f6',
   secret: '1181e12735de4805b84ecf1705dd0352'
 });
- 
-// spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-//   if (err) {
-//     return console.log('Error occurred: ' + err);
-//   }
-
 spotify
   .search({ type: 'track', query: 'All the Small Things', limit: 1 })
   .then(function(response) {
@@ -77,27 +71,15 @@ spotify
     console.log("-------------------------------------");
     console.log("");
     console.log(response);
-    console.log("Artist(s): " + JSON.parse(body));
-    //console.log("The song name: " + JSON.parse(body).Year);
-    //console.log("Preview link of the song from Spotify: " + JSON.parse(body).Year);
-    //console.log("Album: " + JSON.parse(body).Year);
     console.log("-------------------------------------");
     console.log("-------------------------------------");
     console.log("");
   })
   .catch(function(err) {
-  	console.log("-------------------------------------");
-    console.log("-------------------------------------");
+    console.log("");
     console.log(error);
-    console.log("-------------------------------------");
-    console.log("-------------------------------------");
     console.log("");
 })
-// console.log("");
-// console.log("-------------------------------------");
-// console.log("This is our Spotify data: " + data);
-// console.log("-------------------------------------");
-// console.log("");
 }
 // -------------------------------------------------------------------
 // Spotify API
@@ -135,7 +117,7 @@ request(queryUrl, function(error, response, body) {
     console.log("The Title of the movie: " + JSON.parse(body).Title);
     console.log("-------------------------------------");
     console.log("The release year of the movie: " + JSON.parse(body).Year);
-    console.log("IMDB Rating: " + JSON.parse(body).IMDBRating);
+    console.log("IMDB Rating: " + JSON.parse(body).Ratings);
     console.log("Country: " + JSON.parse(body).Country);
     console.log("Language: " + JSON.parse(body).Language);
     console.log("Movie Plot: " + JSON.parse(body).Plot);
