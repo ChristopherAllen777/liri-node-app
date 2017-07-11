@@ -26,21 +26,21 @@ var action = process.argv[2];
 var value = process.argv[3];
 
 switch (action) {
-  case "my-tweets":
-    myTweets();
-    break;
-  case "spotify-this-song":
+	case "my-tweets":
+		myTweets();
+		break;
+	case "spotify-this-song":
     mySpotify();
-    break;
-  case "movie-this":
-    myMovie();
-    break;
-  case "do-what-it-says":
-    random();
-    break;
+		break;
+	case "movie-this":
+		myMovie();
+		break;
+	case "do-what-it-says":
+		random();
+		break;
   default: // Adds user instructions to re-select an available action
-  console.log("Please select an action request listed below:");
-  console.log("my-tweets, spotify-this-song, movie-this, do-what-it-says");
+    console.log("Please select an action request listed below:");
+    console.log("my-tweets, spotify-this-song, movie-this, do-what-it-says");
     break;
 }
 
@@ -48,43 +48,42 @@ switch (action) {
 // Twitter API 
 // -------------------------------------------------------------------
 function myTweets() {
- 
-var params = {screen_name: 'chrisallen777', count: limitTweets};
-accountTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (error) {
-    console.log(error);
-  } else if (!error) {
-    console.log("\nThese are your last " + (tweets.length) + " tweets: \n");
-      for (var i = 0; i < tweets.length; i++) {
-        console.log("Tweets " + (i+1) + ": " + "\n" + tweets[i].text + 
-          "\n" + "Created on: " + tweets[i].created_at);
-        console.log("--------------------");
+
+  var params = {screen_name: 'Smith39Bobby', count: limitTweets};
+  accountTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (error) {
+      console.log(error);
+    } else if (!error) {
+      console.log("\nThese are your last " + (tweets.length) + " tweets: \n");
+        for (var i = 0; i < tweets.length; i++) {
+          console.log("Tweets " + (i+1) + ": " + "\n" + tweets[i].text + 
+            "\n" + "Created on: " + tweets[i].created_at);
+          console.log("-------------------");
       }
-  }
-  });
-}; 
+    }
+    });
+};
 
 // Spotify API 
 // -------------------------------------------------------------------
-
 function mySpotify() {
 
-  spotifyInfo.search({ type: 'track', query: value, limit: '1'}, function(err, data) {
+  spotifyInfo.search({ type: 'track', query: value, limit: '1' }, function(err, data) {
     if (err) {
-      console.log('Error occured: ' + err);
+      console.log('Error occurred: ' + err);
     } else {
       // Returns JSON info for selected track
-      // console.log(JSON.stringify(data, null, 2));
-
-      console.log("\nArtist: " + JSON.stringify(data.tracks.items[0].artists[0].name, null, 2) + "\n");
-      console.log("Song Title: " + JSON.stringify(data.tracks.items[0].name) + "\n");
-      console.log("Album " + JSON.stringify(data.tracks.items[0].album.name) + "\n");
-      console.log("Link: " + JSON.stringify(data.tracks.itmes[0].album.external_urls));
-    }
+      //console.log(JSON.stringify(data, null, 2));
+     
+      console.log("\nArtist: " + JSON.stringify(data.tracks.items[0].artists[0].name, null, 2) + "\n ");
+      console.log("Song Title: " + JSON.stringify(data.tracks.items[0].name) + "\n ");
+      console.log("Album: " +JSON.stringify(data.tracks.items[0].album.name) + "\n ");
+      console.log("Link: " + JSON.stringify(data.tracks.items[0].album.external_urls));
+      }
   });
 };
 
-// MOVIE DBM API
+//MOVIE DBM API
 // -------------------------------------------------------------------
 
 function myMovie() {
@@ -95,29 +94,30 @@ var nodeArgs = process.argv;
 // Create an empty string for holding the movie name
 var movieName = "";
 
-// Capture all the words in the movie name (ignore first 3 node arguments
+// Capture all the words in the movie name (ignore first 3 node arguments)
 for (var i = 3; i < nodeArgs.length; i++) {
 
 // If TRUE, Build a string with the movie name.
-if (i > 3 && i < nodeArgs.length) {
-  movieName = movieName + "+" + nodeArgs[i];
-} else {
-  movieName += nodeArgs[i];
+ if (i > 3 && i < nodeArgs.length){
+   movieName = movieName + "+" + nodeArgs[i];
+ } else {
+   movieName += nodeArgs[i];
  }
 }
 
 // Create URL query variable to store URL to request JSON from OMDB API
 var queryUrl = "http://www.omdbapi.com/?apikey=40e9cece&t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
+//console.log(queryUrl);
 
-// Run request to OMDB API with URL varible
+//Run request to the OMDB API with URL variable
 request(queryUrl, function(error, response, body) {
 
-  // If the request was successful ... 
-  if (!error && response.statusCode === 200) {
-
-    var body = JSON.parse(body);
-
-    // Then log the body details from the OMDB API
+  // If the request was successful...
+    if (!error && response.statusCode === 200) {
+      
+      var body = JSON.parse(body);
+      
+      //Then log the body details from the OMDB API
       console.log("\nMovie Title: " + body.Title + "\n ");
       console.log("Year Released: " + body.Released + "\n ");
       console.log("Rating: " + body.Rated + "\n ");
@@ -127,10 +127,11 @@ request(queryUrl, function(error, response, body) {
       console.log("Actors: " + body.Actors + "\n ");
       console.log("Rotten Tomatoes Rating: " + body.Ratings[1].value + "\n ");
       console.log("Rotten Tomatoes URL: " + body.tomatoURL);
-  } else {
+  
+   } else {
     console.log(error);
-  };
-});
+   };
+ });
 }
 
 // DO-WHAT-IT-SAYS 
@@ -163,34 +164,3 @@ function random() {
     }
   });  
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
